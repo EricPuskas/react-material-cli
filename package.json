@@ -1,6 +1,6 @@
 {
   "name": "react-material-cli",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Generate custom react components and hooks that follow best practices and the highest standards of implementation.",
   "main": "index.js",
   "bin": {
