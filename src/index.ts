@@ -160,6 +160,7 @@ const buildComponentFiles = async (paths: Paths) => {
    * Creates the component directory
    */
   await createComponentDirectory(calculatePath(componentDir));
+  utils.logItemCompletion(paths.TEMPLATE_MAIN_PATH);
   utils.logItemCompletion("Directory created.");
 
   /**
@@ -201,6 +202,7 @@ const buildFiles = async () => {
    * Gets the options
    */
   const options = program.opts();
+  console.log(tsPaths);
 
   if (options.ts) {
     /**

@@ -3,10 +3,13 @@
   "version": "0.1.3",
   "description": "Generate custom react components and hooks that follow best practices and the highest standards of implementation.",
   "main": "index.js",
-  "bin": "dist/index.js",
+  "bin": {
+    "rmc": "dist/index.js"
+  },
   "files": [
     "dist",
-    "templates"
+    "templates",
+    "default"
   ],
   "publishConfig": {
     "access": "public"
