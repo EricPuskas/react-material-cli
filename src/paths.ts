@@ -25,8 +25,8 @@ export const getPaths = (directoryName: string, fileName: string) => {
   /**
    * Defines the base paths
    */
-  const baseJsTemplatePath = `../..default/${directoryName}`;
-  const baseTsTemplatePath = `../default/${directoryName}`;
+  const baseJsTemplatePath = `../..default/${fileName}`;
+  const baseTsTemplatePath = `../default/${fileName}`;
 
   /**
    * Javascript paths
