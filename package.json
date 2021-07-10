@@ -9,6 +9,9 @@
   "publishConfig": {
     "access": "public"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "npm run prepublishOnly && npm run prepareDev",
     "prepareDev": "rmc import Header",
