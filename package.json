@@ -1,25 +1,23 @@
 {
   "name": "react-material-cli",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Generate custom react components and hooks that follow best practices and the highest standards of implementation.",
   "main": "index.js",
   "bin": {
     "rmc": "dist/index.js"
   },
-  "files": [
-    "dist",
-    "templates",
-    "default"
-  ],
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "dev": "npm run prepublishOnly",
+    "dev": "npm run prepublishOnly && npm run prepareDev",
+    "prepareDev": "rmc import Header",
     "prepublishOnly": "esbuild src/index.ts --platform=node --outfile=dist/index.js --bundle --minify"
   },
-  "author": "Eric Puskas",
-  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EricPuskas/react-material-cli.git"
+  },
   "keywords": [
     "react",
     "reactjs",
@@ -27,15 +25,22 @@
     "components",
     "hooks"
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/EricPuskas/react-material-cli"
+  "author": "Eric Puskas",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/EricPuskas/react-material-cli/issues"
   },
+  "homepage": "https://github.com/EricPuskas/react-material-cli#readme",
   "devDependencies": {
-    "@types/node": "^16.0.0",
+    "@types/fs-extra": "^9.0.12",
+    "@types/node": "^16.3.1",
+    "@types/prompts": "^2.0.14",
     "chalk": "^4.1.1",
     "commander": "^8.0.0",
     "esbuild": "^0.12.15",
+    "fs-extra": "^10.0.0",
+    "prompts": "^2.4.1",
     "typescript": "^4.3.5"
-  }
+  },
+  "dependencies": {}
 }
