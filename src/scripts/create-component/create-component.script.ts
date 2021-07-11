@@ -5,13 +5,18 @@ import prompts from "prompts";
 /**
  * Handles creating a component
  */
-export const createComponent = async (
-  componentName: string,
-  options: any,
-  destination?: string
-) => {
-  const devPath = path.join(process.cwd() + `/src/components/${componentName}`);
-  const pathExists = await fse.pathExists(devPath);
+export const createComponent = async (componentName: string, options: any) => {
+  const { ts, boilerplate } = options;
+
+  const targetPath = path.join(
+    process.cwd() + `/src/components/${componentName}`
+  );
+
+  const source = ts
+    ? path.join(__dirname, "ts", "/", componentName)
+    : path.join(__dirname, "js", "/", componentName);
+
+  const pathExists = await fse.pathExists(targetPath);
 
   if (!pathExists) {
     await fse.mkdir(
@@ -20,7 +25,6 @@ export const createComponent = async (
   }
 
   if (pathExists) {
-    console.log(pathExists, devPath);
     const noRegex = /^(?:n|N|No|no)$/;
 
     (async () => {
@@ -36,12 +40,10 @@ export const createComponent = async (
       if (response.command.match(noRegex)) {
         process.exit();
       }
-      const componentPath = path.join(__dirname + `/${componentName}`);
-
-      await fse.copy(componentPath, devPath);
+      await fse.emptyDir(targetPath);
+      await fse.copy(source, targetPath);
     })();
   } else {
-    const componentPath = path.join(__dirname + `/${componentName}`);
-    await fse.copy(componentPath, devPath);
+    await fse.copy(source, targetPath);
   }
 };

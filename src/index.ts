@@ -9,6 +9,7 @@ import { version } from "../package.json";
  * Imports scripts
  */
 import { createComponent } from "./scripts/create-component";
+import { importComponent } from "./scripts/import-component";
 import { importDev } from "./scripts/import-dev";
 
 /**
@@ -25,12 +26,12 @@ program.version(version);
  * Creates a component
  */
 program
-  .command("create <componentName> [destination]")
+  .command("create <componentName>")
   .description("create a component")
   .option("-ts, --ts", "Typescript template", false)
   .option("-b, --boilerplate", "Boilerplate", false)
-  .action((componentName, destination, options) => {
-    createComponent(componentName, options, destination);
+  .action((componentName, options) => {
+    createComponent(componentName, options);
   });
 
 /**
@@ -39,10 +40,20 @@ program
 program
   .command("import [componentName]")
   .description("import a component")
-  .option("-all, --all", "Imports all components", false)
+  .option("-ts, --ts", "Typescript component", false)
   .option("-src, --src <source>", "Source")
   .action((componentName, options) => {
-    importDev(componentName, options);
+    importComponent(componentName, options);
+  });
+
+/**
+ * Imports the dev components
+ */
+program
+  .command("import-dev")
+  .description("import the dev components")
+  .action((options) => {
+    importDev(options);
   });
 
 program.parse(process.argv);
