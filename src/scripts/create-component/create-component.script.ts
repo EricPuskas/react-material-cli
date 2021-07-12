@@ -1,12 +1,15 @@
 import path from "path";
 import fse from "fs-extra";
 import prompts from "prompts";
+import { createBoilerplate } from "../create-boilerplate";
 
 /**
  * Handles creating a component
  */
 export const createComponent = async (componentName: string, options: any) => {
   const { ts, boilerplate } = options;
+
+  if (boilerplate) return createBoilerplate(componentName, options);
 
   const targetPath = path.join(
     process.cwd() + `/src/components/${componentName}`
