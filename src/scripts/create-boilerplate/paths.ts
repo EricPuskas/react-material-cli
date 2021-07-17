@@ -18,7 +18,7 @@ export interface Paths {
 }
 
 /**
- * Handles defining and returning the js and ts paths for all files and templates
+ * Handles defining and returning the js and ts paths for all files and boilerplates
  * @param directoryName String
  * @param fileName String
  * @returns
@@ -27,8 +27,8 @@ export const getPaths = (directoryName: string, fileName: string) => {
   /**
    * Defines the base paths
    */
-  const baseJsTemplatePath = "./templates/js";
-  const baseTsTemplatePath = "./templates/ts";
+  const baseJsTemplatePath = "./boilerplates/js";
+  const baseTsTemplatePath = "./boilerplates/ts";
 
   /**
    * Javascript paths

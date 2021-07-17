@@ -44,10 +44,10 @@ export const createBoilerplate = async (
   const { jsPaths, tsPaths } = getPaths(componentDirectory, componentName);
 
   /**
-   * Handles formatting the template
+   * Handles formatting the boilerplate
    */
-  const formatTemplate = (template: Buffer | string) =>
-    template
+  const formatBoilerplate = (boilerplate: Buffer | string) =>
+    boilerplate
       .toString()
       .replace(/COMPONENT_NAME/g, componentName)
       .replace("// @ts-nocheck", "")
@@ -58,9 +58,9 @@ export const createBoilerplate = async (
    */
   const createComponentFile = async (
     path: string,
-    template: Buffer | string
+    boilerplate: Buffer | string
   ) => {
-    await fse.writeFile(path, formatTemplate(template));
+    await fse.writeFile(path, formatBoilerplate(boilerplate));
   };
 
   /**
@@ -87,78 +87,90 @@ export const createBoilerplate = async (
     await createComponentDirectory(calculatePath(componentDirectory));
 
     /**
-     * Reads the main template file from dist/templates/js|ts
+     * Reads the main boilerplate file from dist/boilerplates/js|ts
      */
-    const mainTemplate = await fse.readFile(
+    const mainBoilerplate = await fse.readFile(
       path.join(distDirectory, paths.TEMPLATE_MAIN_PATH)
     );
 
     /**
-     * Reads the story template file from dist/templates/js|ts
+     * Reads the story boilerplate file from dist/boilerplates/js|ts
      */
-    const storyTemplate = await fse.readFile(
+    const storyBoilerplate = await fse.readFile(
       path.join(distDirectory, paths.TEMPLATE_STORY_PATH)
     );
 
     /**
-     * Reads the test template file from dist/templates/js|ts
+     * Reads the test boilerplate file from dist/boilerplates/js|ts
      */
-    const testTemplate = await fse.readFile(
+    const testBoilerplate = await fse.readFile(
       path.join(distDirectory, paths.TEMPLATE_TEST_PATH)
     );
 
     /**
-     * Reads the styles template file from dist/templates/js|ts
+     * Reads the styles boilerplate file from dist/boilerplates/js|ts
      */
-    const stylesTemplate = await fse.readFile(
+    const stylesBoilerplate = await fse.readFile(
       path.join(distDirectory, paths.TEMPLATE_STYLES_PATH)
     );
 
     if (ts && paths.TEMPLATE_TYPES_PATH && paths.TYPES_PATH) {
       /**
-       * Reads the types template file from dist/templates/js|ts
+       * Reads the types boilerplate file from dist/boilerplates/js|ts
        */
-      const typesTemplate = await fse.readFile(
+      const typesBoilerplate = await fse.readFile(
         path.join(distDirectory, paths.TEMPLATE_TYPES_PATH)
       );
 
       /**
        * Creates the types file
        */
-      await createComponentFile(calculatePath(paths.TYPES_PATH), typesTemplate);
+      await createComponentFile(
+        calculatePath(paths.TYPES_PATH),
+        typesBoilerplate
+      );
     }
 
     /**
-     * Reads the index template file from dist/templates/js|ts
+     * Reads the index boilerplate file from dist/boilerplates/js|ts
      */
-    const indexTemplate = await fse.readFile(
+    const indexBoilerplate = await fse.readFile(
       path.join(distDirectory, paths.TEMPLATE_INDEX_PATH)
     );
 
     /**
      * Creates the main file
      */
-    await createComponentFile(calculatePath(paths.MAIN_PATH), mainTemplate);
+    await createComponentFile(calculatePath(paths.MAIN_PATH), mainBoilerplate);
 
     /**
      * Creates the story file
      */
-    await createComponentFile(calculatePath(paths.STORY_PATH), storyTemplate);
+    await createComponentFile(
+      calculatePath(paths.STORY_PATH),
+      storyBoilerplate
+    );
 
     /**
      * Creates the test file
      */
-    await createComponentFile(calculatePath(paths.TEST_PATH), testTemplate);
+    await createComponentFile(calculatePath(paths.TEST_PATH), testBoilerplate);
 
     /**
      * Creates the styles file
      */
-    await createComponentFile(calculatePath(paths.STYLES_PATH), stylesTemplate);
+    await createComponentFile(
+      calculatePath(paths.STYLES_PATH),
+      stylesBoilerplate
+    );
 
     /**
      * Creates the index file
      */
-    await createComponentFile(calculatePath(paths.INDEX_PATH), indexTemplate);
+    await createComponentFile(
+      calculatePath(paths.INDEX_PATH),
+      indexBoilerplate
+    );
   };
 
   /**
@@ -198,7 +210,7 @@ export const createBoilerplate = async (
       }
 
       /**
-       * Removes any old templates directory from dist
+       * Removes any old boilerplates directory from dist
        */
       fse.removeSync(path.join(targetPath));
       buildFiles();

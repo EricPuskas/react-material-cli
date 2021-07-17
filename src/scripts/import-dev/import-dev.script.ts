@@ -20,10 +20,20 @@ export const importDev = async (options: any) => {
    * Where the default components reside
    */
   const devPathJS = path.join(
-    currentWorkingDirectory + `/dev/src/components/js/`
+    currentWorkingDirectory + "/dev/src/components/js/"
   );
   const devPathTS = path.join(
-    currentWorkingDirectory + `/dev/src/components/ts/`
+    currentWorkingDirectory + "/dev/src/components/ts/"
+  );
+
+  /**
+   * Defines the dev paths for hooks
+   */
+  const devPathHooksJS = path.join(
+    currentWorkingDirectory + "/dev/src/hooks/js/"
+  );
+  const devPathHooksTS = path.join(
+    currentWorkingDirectory + "/dev/src/hooks/ts"
   );
 
   /**
@@ -31,68 +41,149 @@ export const importDev = async (options: any) => {
    * Where the boilerplate components reside
    */
   const templatePathJS = path.join(
-    currentWorkingDirectory + `/src/scripts/create-boilerplate/templates/js`
+    currentWorkingDirectory + "/src/scripts/create-boilerplate/templates/js"
   );
   const templatePathTS = path.join(
-    currentWorkingDirectory + `/src/scripts/create-boilerplate/templates/ts`
+    currentWorkingDirectory + "/src/scripts/create-boilerplate/templates/ts"
   );
 
   /**
-   * Defines the JS and TS output directories in the dist folder
+   * Defines the defaults JS and TS output directories in the dist folder
    * Structure:
    *   - dist
-   *      - js
-   *      - ts
+   *      - defaults
+   *        - js
+   *        - ts
    */
-  const outputJS = path.join(distDirectory, "js");
-  const outputTS = path.join(distDirectory, "ts");
+  const outputJS = path.join(distDirectory, "defaults", "js");
+  const outputTS = path.join(distDirectory, "defaults", "ts");
 
   /**
-   * Defines the template output directory in the dist folder
+   * Defines the boilerplates output directory in the dist folder
    * Structure:
    *   - dist
-   *      - templates
+   *      - boilerplates
    *          - js
    *          - ts
    */
-  const templatesJS = path.join(distDirectory, "templates", "js");
-  const templatesTS = path.join(distDirectory, "templates", "ts");
+  const templatesJS = path.join(distDirectory, "boilerplates", "js");
+  const templatesTS = path.join(distDirectory, "boilerplates", "ts");
 
   /**
-   * Removes any old js or ts directories from dist
+   * Defines the hooks output directory in the dist folder
+   * Structure:
+   *   - dist
+   *      - hooks
+   *          - js
+   *          - ts
    */
-  fse.removeSync(path.join(distDirectory, "ts"));
-  fse.removeSync(path.join(distDirectory, "js"));
+  const outputHooksJS = path.join(distDirectory, "hooks", "js");
+  const outputHooksTS = path.join(distDirectory, "hooks", "ts");
+
+  /**
+   * Defines the imports output directory in the dist folder
+   * Structure:
+   *   - dist
+   *      - imports
+   *          - js
+   *          - ts
+   */
+  const importsDir = path.join(distDirectory, "imports");
+  const importsJS = path.join(distDirectory, "imports", "js");
+  const importsTS = path.join(distDirectory, "imports", "js");
+
+  /**
+   * Checks if the imports folder exists
+   */
+  const importsDirExists = await fse.pathExists(importsDir);
+
+  /**
+   * Creates the imports folder and it's subfolders if it doesn't exist
+   */
+  if (!importsDirExists) {
+    /**
+     * Creates the imports folder in dist
+     */
+    fse.mkdirSync(path.join(distDirectory, "imports"));
+    fse.mkdirSync(path.join(distDirectory, "imports", "js"));
+    fse.mkdirSync(path.join(distDirectory, "imports", "ts"));
+  }
+
+  /**
+   * Edge-case, checks if the js folder exists in the imports directory
+   *
+   * Creates the imports/js folder in dist if it doesn't exist
+   */
+  const importsJsExists = await fse.pathExists(importsJS);
+  if (!importsJsExists) {
+    fse.mkdirSync(path.join(distDirectory, "imports", "js"));
+  }
+
+  /**
+   * Edge-case, checks if the ts folder exists in the imports directory
+   *
+   * Creates the imports/ts folder in dist if it doesn't exist
+   */
+  const importsTsExists = await fse.pathExists(importsTS);
+  if (!importsTsExists) {
+    fse.mkdirSync(path.join(distDirectory, "imports", "ts"));
+  }
 
   /**
    * Removes any old templates directory from dist
    */
-  fse.removeSync(path.join(distDirectory, "templates"));
+  fse.removeSync(path.join(distDirectory, "boilerplates"));
 
   /**
-   * Creates new ts and js directories in dist
+   * Removes any old defaults directory from dist
    */
-  fse.mkdirSync(path.join(distDirectory, "ts"));
-  fse.mkdirSync(path.join(distDirectory, "js"));
+  fse.removeSync(path.join(distDirectory, "defaults"));
 
   /**
-   * Creates a new templates directory in dist
+   * Removes any old hooks directory from dist
    */
-  fse.mkdirSync(path.join(distDirectory, "templates"));
+  fse.removeSync(path.join(distDirectory, "hooks"));
 
   /**
-   * Creates new ts and js directories in templates
+   * Creates the defaults folder in dist
    */
-  fse.mkdirSync(path.join(distDirectory, "templates", "js"));
-  fse.mkdirSync(path.join(distDirectory, "templates", "ts"));
+  fse.mkdirSync(path.join(distDirectory, "defaults"));
 
   /**
-   * Copies the js folder from dev/src/components/js to dist/js
+   * Creates new ts and js directories in dist/defaults
+   */
+  fse.mkdirSync(path.join(distDirectory, "defaults", "ts"));
+  fse.mkdirSync(path.join(distDirectory, "defaults", "js"));
+
+  /**
+   * Creates a new boilerplates directory in dist
+   */
+  fse.mkdirSync(path.join(distDirectory, "boilerplates"));
+
+  /**
+   * Creates new ts and js directories in boilerplates
+   */
+  fse.mkdirSync(path.join(distDirectory, "boilerplates", "js"));
+  fse.mkdirSync(path.join(distDirectory, "boilerplates", "ts"));
+
+  /**
+   * Creates a new hooks directory in dist
+   */
+  fse.mkdirSync(path.join(distDirectory, "hooks"));
+
+  /**
+   * Creates new ts and js directories in hooks
+   */
+  fse.mkdirSync(path.join(distDirectory, "hooks", "js"));
+  fse.mkdirSync(path.join(distDirectory, "hooks", "ts"));
+
+  /**
+   * Copies the js folder from dev/src/components/js to dist/defaults/js
    */
   fse.copySync(devPathJS, outputJS);
 
   /**
-   * Copies the ts folder from dev/src/components/ts to dist/ts
+   * Copies the ts folder from dev/src/components/ts to dist/defaults/ts
    */
   fse.copySync(devPathTS, outputTS);
 
@@ -111,4 +202,14 @@ export const importDev = async (options: any) => {
    *  dist/templates/ts
    */
   fse.copySync(templatePathTS, templatesTS);
+
+  /**
+   * Copies the js folder from dev/src/hooks/js to dist/hooks/js
+   */
+  fse.copySync(devPathHooksJS, outputHooksJS);
+
+  /**
+   * Copies the ts folder from dev/src/hooks/ts to dist/hooks/ts
+   */
+  fse.copySync(devPathHooksTS, outputHooksTS);
 };

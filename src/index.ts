@@ -27,9 +27,10 @@ program.version(version);
  */
 program
   .command("create <componentName>")
-  .description("create a component")
+  .description("create a component/hook from the library")
   .option("-ts, --ts", "Typescript template", false)
   .option("-b, --boilerplate", "Boilerplate", false)
+  .option("-h, --hook", "Hook", false)
   .action((componentName, options) => {
     createComponent(componentName, options);
   });

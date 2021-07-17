@@ -2,22 +2,24 @@ import path from "path";
 import fse from "fs-extra";
 import prompts from "prompts";
 import { createBoilerplate } from "../create-boilerplate";
+import { createHook } from "../create-hook";
 
 /**
  * Handles creating a component
  */
 export const createComponent = async (componentName: string, options: any) => {
-  const { ts, boilerplate } = options;
+  const { ts, boilerplate, hook } = options;
 
   if (boilerplate) return createBoilerplate(componentName, options);
+  if (hook) return createHook(componentName, options);
 
   const targetPath = path.join(
     process.cwd() + `/src/components/${componentName}`
   );
 
   const source = ts
-    ? path.join(__dirname, "ts", "/", componentName)
-    : path.join(__dirname, "js", "/", componentName);
+    ? path.join(__dirname, "defaults", "ts", "/", componentName)
+    : path.join(__dirname, "defaults", "js", "/", componentName);
 
   const pathExists = await fse.pathExists(targetPath);
 
