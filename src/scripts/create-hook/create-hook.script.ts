@@ -21,7 +21,12 @@ export const createHook = async (hookName: string, options: any) => {
     await fse.mkdir(path.join(process.cwd() + `/src/hooks`));
   }
 
+  const sourceExists = await fse.pathExists(source);
   const pathExists = await fse.pathExists(targetPath);
+
+  if (!sourceExists) {
+    return console.log("Hook not found.");
+  }
 
   if (!pathExists) {
     await fse.mkdir(path.join(process.cwd() + `/src/hooks/${hookName}`));

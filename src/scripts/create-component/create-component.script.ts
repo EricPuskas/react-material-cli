@@ -22,6 +22,11 @@ export const createComponent = async (componentName: string, options: any) => {
     : path.join(__dirname, "defaults", "js", "/", componentName);
 
   const pathExists = await fse.pathExists(targetPath);
+  const sourceExists = await fse.pathExists(source);
+
+  if (!sourceExists) {
+    return console.log("Component not found");
+  }
 
   if (!pathExists) {
     await fse.mkdir(

@@ -10,6 +10,7 @@ import { version } from "../package.json";
  */
 import { createComponent } from "./scripts/create-component";
 import { importComponent } from "./scripts/import-component";
+import { exportComponent } from "./scripts/export-component";
 import { importDev } from "./scripts/import-dev";
 
 /**
@@ -33,6 +34,20 @@ program
   .option("-h, --hook", "Hook", false)
   .action((componentName, options) => {
     createComponent(componentName, options);
+  });
+
+/**
+ * Exports a component from the given source
+ */
+program
+  .command("export [componentName]")
+  .description(
+    "exports a component and places it into the imports folder of the library"
+  )
+  .option("-ts, --ts", "Typescript component", false)
+  .option("-src, --src <source>", "Source")
+  .action((componentName, options) => {
+    exportComponent(componentName, options);
   });
 
 /**
