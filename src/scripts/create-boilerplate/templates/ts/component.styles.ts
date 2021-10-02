@@ -1,9 +1,15 @@
 // @ts-nocheck
-import { makeStyles, Theme } from "@material-ui/core/styles";
+/**
+ * Imports styled
+ */
+import { styled } from "@mui/material";
 
 /**
- * Styles the component
+ * Styles the container
  */
-export const useStyles = makeStyles((theme: Theme) => ({
-  COMPONENT_NAME: {}
-}));
+export const StyledDiv = styled("div")((props) => {
+  const { theme } = props;
+  return {
+    /** Style here */
+  };
+});

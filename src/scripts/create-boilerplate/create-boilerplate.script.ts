@@ -94,20 +94,6 @@ export const createBoilerplate = async (
     );
 
     /**
-     * Reads the story boilerplate file from dist/boilerplates/js|ts
-     */
-    const storyBoilerplate = await fse.readFile(
-      path.join(distDirectory, paths.TEMPLATE_STORY_PATH)
-    );
-
-    /**
-     * Reads the test boilerplate file from dist/boilerplates/js|ts
-     */
-    const testBoilerplate = await fse.readFile(
-      path.join(distDirectory, paths.TEMPLATE_TEST_PATH)
-    );
-
-    /**
      * Reads the styles boilerplate file from dist/boilerplates/js|ts
      */
     const stylesBoilerplate = await fse.readFile(
@@ -142,19 +128,6 @@ export const createBoilerplate = async (
      * Creates the main file
      */
     await createComponentFile(calculatePath(paths.MAIN_PATH), mainBoilerplate);
-
-    /**
-     * Creates the story file
-     */
-    await createComponentFile(
-      calculatePath(paths.STORY_PATH),
-      storyBoilerplate
-    );
-
-    /**
-     * Creates the test file
-     */
-    await createComponentFile(calculatePath(paths.TEST_PATH), testBoilerplate);
 
     /**
      * Creates the styles file

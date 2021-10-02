@@ -1,13 +1,13 @@
 // @ts-nocheck
 /**
+ * Imports styled components
+ */
+import { StyledDiv } from "./Example.styles";
+
+/**
  * Imports types
  */
 import { COMPONENT_NAMEProps } from "./COMPONENT_NAME.types";
-
-/**
- * Imports the component styles
- */
-import { useStyles } from "./COMPONENT_NAME.styles";
 
 /**
  * Defines the default props
@@ -22,12 +22,7 @@ const defaultProps: COMPONENT_NAMEProps = {
 export const COMPONENT_NAME: React.FC<COMPONENT_NAMEProps> = (props) => {
   const { text } = props;
 
-  /**
-   * Gets the component styles
-   */
-  const classes = useStyles();
-
-  return <div className={classes.COMPONENT_NAME}>{text}</div>;
+  return <StyledDiv className="COMPONENT_NAME-root">{text}</StyledDiv>;
 };
 
 COMPONENT_NAME.defaultProps = defaultProps;
