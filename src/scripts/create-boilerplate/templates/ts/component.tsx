@@ -2,7 +2,7 @@
 /**
  * Imports styled components
  */
-import { StyledDiv } from "./Example.styles";
+import { StyledDiv } from "./COMPONENT_NAME.styles";
 
 /**
  * Imports types
