@@ -3,15 +3,15 @@
  */
 export interface Paths {
   TEMPLATE_MAIN_PATH: string;
-  TEMPLATE_STORY_PATH: string;
-  TEMPLATE_DOC_PATH: string;
-  TEMPLATE_TEST_PATH: string;
+  TEMPLATE_STORY_PATH?: string;
+  TEMPLATE_DOC_PATH?: string;
+  TEMPLATE_TEST_PATH?: string;
   TEMPLATE_STYLES_PATH: string;
   TEMPLATE_TYPES_PATH?: string;
   TEMPLATE_INDEX_PATH: string;
   MAIN_PATH: string;
-  STORY_PATH: string;
-  TEST_PATH: string;
+  STORY_PATH?: string;
+  TEST_PATH?: string;
   STYLES_PATH: string;
   TYPES_PATH?: string;
   INDEX_PATH: string;
@@ -52,18 +52,13 @@ export const getPaths = (directoryName: string, fileName: string) => {
    */
   const tsPaths: Paths = {
     TEMPLATE_MAIN_PATH: `${baseTsTemplatePath}/component.tsx`,
-    TEMPLATE_STORY_PATH: `${baseTsTemplatePath}/component.stories.tsx`,
-    TEMPLATE_DOC_PATH: `${baseTsTemplatePath}/component.md`,
-    TEMPLATE_TEST_PATH: `${baseTsTemplatePath}/component.test.tsx`,
     TEMPLATE_STYLES_PATH: `${baseTsTemplatePath}/component.styles.ts`,
     TEMPLATE_TYPES_PATH: `${baseTsTemplatePath}/component.types.ts`,
-    TEMPLATE_INDEX_PATH: `${baseTsTemplatePath}/index.tsx`,
+    TEMPLATE_INDEX_PATH: `${baseTsTemplatePath}/index.ts`,
     MAIN_PATH: `${directoryName}/${fileName}.tsx`,
-    STORY_PATH: `${directoryName}/${fileName}.stories.tsx`,
-    TEST_PATH: `${directoryName}/${fileName}.test.tsx`,
     STYLES_PATH: `${directoryName}/${fileName}.styles.ts`,
     TYPES_PATH: `${directoryName}/${fileName}.types.ts`,
-    INDEX_PATH: `${directoryName}/index.tsx`
+    INDEX_PATH: `${directoryName}/index.ts`
   };
 
   return { jsPaths, tsPaths };
